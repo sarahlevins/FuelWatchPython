@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import re_path
-from my_django_project.views import index
+from django.urls import re_path, path
+from django.contrib import admin
+from fuelwatchproject.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
