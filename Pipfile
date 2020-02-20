@@ -6,6 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+pipfile = "*"
+django = "*"
+requests = "*"
+feedparser = "*"
+django-filters = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,0 +1,28 @@
+html {
+  font-family: "Manjari", sans-serif;
+}
+
+body {
+  margin: 50px;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #ff006f;
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+tr:hover {
+  background-color: aquamarine;
+}
