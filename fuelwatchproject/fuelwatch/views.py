@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from fuelwatchproject.fuelwatch import fuelley
+from fuelwatch.get_fuel import get_fuel
+from .models import FuelPrice, FuelStation
 from data import data
 
 def index(request):
+    fuel_list = FuelPrice.objects.order_by('price')
     return render(request, 'index.html', {
-    'fuel': data
+    'fuel': fuel_list
 })
 

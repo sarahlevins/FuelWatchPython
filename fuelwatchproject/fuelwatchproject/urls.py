@@ -14,13 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import re_path, path
+from django.urls import path, include
 from django.contrib import admin
-from fuelwatchproject.views import index
 
 urlpatterns = [
+    path('fuelwatch/', include('fuelwatch.urls')),
     path('admin/', admin.site.urls),
-    re_path('^$', index),
-    # Equivalent to below
-    # path('', index),
 ]
