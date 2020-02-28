@@ -1,36 +1,25 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <title>Fuel Watch</title>
-  </head>
-  <body>
-    <div id="container">
-      <div id="header">
-        <h1>Fuel!</h1>
-      </div>
-      <div id="fueltable">
-        <table>
-          <tr>
-            <th>Price</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Address</th>
-          </tr>
-          {% for f in fuel %}
-          <tr>
-            <td>{{ f.price }}</td>
-            <td>{{ f.fuel_station.trading_name }}</td>
-            <td>{{ f.fuel_station.location }}</td>
-            <td>{{ f.fuel_station.address }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-      </div>
+{% extends "base.html" %}
+
+{% block content %}
+
+      <form action="" method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+      </form>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+        {% for f in filter.qs %}
+        <tr>
+          <td>{{ f.fuel_station.trading_name }}</td>
+          <td>{{ f.price }}</td>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
   </body>
 </html>
+
+{% endblock %}

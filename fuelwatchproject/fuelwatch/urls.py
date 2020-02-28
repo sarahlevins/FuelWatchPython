@@ -6,4 +6,5 @@ app_name = 'fuelwatch'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('getfuel/', views.get_fuel)
 ]

@@ -10,7 +10,7 @@ pipfile = "*"
 django = "*"
 requests = "*"
 feedparser = "*"
-django-filters = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"

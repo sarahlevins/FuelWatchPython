@@ -10,7 +10,7 @@ class FuelStation(models.Model):
         return self.trading_name
 
 class FuelPrice(models.Model):
-    title = models.CharField(max_length=500, primary_key=True)
+    title = models.CharField(max_length=500)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     date = models.DateTimeField()
     fuel_type = models.IntegerField()
