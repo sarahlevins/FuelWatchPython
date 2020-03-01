@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
       <form action="" method="get">
-        {{ filter.form.as_p }}
+          <div id="suburb-filter-list" class="dropdown-check-list" tabindex="100">
+            <span class="anchor">Suburbs</span>
+              <div>
+                <ul id="items" class="items">
+                  {% for choice in filter.form.fuel_station__suburb %}
+                    <li>{{ choice.tag }} {{ choice.choice_label }} </li>
+                  {% endfor %} 
+              </ul>
+            </div>
+        </div>
+          </div>
         <input type="submit" />
       </form>
       <table>

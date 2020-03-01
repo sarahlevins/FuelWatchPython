@@ -2,7 +2,7 @@ import requests
 import feedparser
 from pprint import pprint
 from datetime import datetime
-from .models import FuelPrice, FuelStation
+from .models import FuelPrice, FuelStation, Suburb
 
 def get_fuel(): 
     regions = [26]
@@ -17,11 +17,17 @@ def get_fuel():
         # loop through data and create fuel pump data
         for i in range(len(feed['entries'])):
             pump = feed['entries'][i]
+            #create suburb
+            suburb = Suburb(
+                suburb_name = pump.get('location'),
+                region = regions[r]
+            )
+            suburb.save()
             #create fuelstation
             fuel_station = FuelStation(
                 trading_name = pump.get('trading-name'),
                 brand = pump.get('brand'),
-                location = pump.get('location'),
+                suburb = suburb,
                 address = pump.get('address'),
             )
             fuel_station.save()
@@ -35,11 +41,6 @@ def get_fuel():
             )
             fuel_price.save()
             print('saved price: ' + fuel_price.title)
-
-# print(pump.get('date'))
-# date_object = datetime.strptime(pump.get('date'), '%Y-%m-%d').date()
-# print(type(date_object))
-# print(date_object)
 
 # {'title': '149.9: Caltex The Foodary Yangebup', 
 # 'title_detail': {

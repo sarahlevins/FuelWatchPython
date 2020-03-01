@@ -9,3 +9,7 @@ def index(request):
     fuel_list = FuelPrice.objects.order_by('price')
     fuel_filter = FuelFilter(request.GET, queryset=fuel_list)
     return render(request, 'index.html', {'fuel': fuel_list, 'filter': fuel_filter})
+
+def getfuel(request):
+    get_fuel()
+    return HttpResponse(200)
