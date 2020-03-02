@@ -1,37 +1,42 @@
 {% extends "base.html" %}
-
 {% load widget_tweaks %}
-
 {% block content %}
 
-      <form action="" method="get">
-          <div id="suburb-filter-list" class="dropdown-check-list" tabindex="100">
-            <span class="anchor">Suburbs</span>
-              <div>
-                <ul id="items" class="items">
-                  {% for choice in filter.form.fuel_station__suburb %}
-                    <li>{{ choice.tag }} {{ choice.choice_label }} </li>
-                  {% endfor %} 
-              </ul>
-            </div>
-        </div>
-          </div>
-        <input type="submit" />
-      </form>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-        {% for f in filter.qs %}
-        <tr>
-          <td>{{ f.fuel_station.trading_name }}</td>
-          <td>{{ f.price }}</td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
-  </body>
-</html>
+<div id="filter-container" class="row">
+  <div id="suburb-filter" class="col-9">
+    <form action="" method="get" style="width: 100%;">
+      <div class="btn dropdown rounded-sm">
+        <button class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
+          <span class="caret">Filter by Suburb</span>
+        </button>
+
+        <ul class="dropdown-menu">
+          {% for choice in filter.form.fuel_station__suburb %}
+          <li>{{ choice.tag }} {{ choice.choice_label }} </li>
+          {% endfor %}
+        </ul>
+      </div>
+  </div>
+  <div id="filter-submit-button" class="col-3 rounded-sm btn">
+    <input class="btn btn-outline-primary" type="submit">
+  </div>
+  </form>
+</div>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+  </tr>
+  {% for f in filter.qs %}
+  <tr data-href="{% url 'fuelwatch:fuel-station-detail' f.fuel_station.trading_name %}">
+    <td>{{ f.fuel_station.trading_name }}</td>
+    <td>{{ f.price }}</td>
+  </tr>
+
+  {% endfor %}
+</table>
 
 {% endblock %}

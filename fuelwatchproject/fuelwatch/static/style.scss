@@ -1,0 +1,60 @@
+
+$mainFont: "Manjari", sans-serif;
+
+@import "boostrapoverides";
+@import "bootstrapscss/bootstrap";
+
+html {
+    font-family: $mainFont;
+  }
+  
+  body {
+    margin: 50px;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    color: $primary;
+    margin: 0;
+    text-shadow: 2px 2px black;
+
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    color: $primary;
+    margin: 0;
+    text-shadow: 1px 1px black;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+  
+  tr:hover {
+    background-color: $primary;
+  }
+
+  tr[data-href] {
+    cursor: pointer;
+  }
+  
+  /* Dropdown Menu Filters */
+  
+  .dropdown-menu {
+    width: 100%; 
+    height:400px;
+    overflow: scroll;
+  }
+  
+  .btn{
+   width: 100%;
+  }
+  

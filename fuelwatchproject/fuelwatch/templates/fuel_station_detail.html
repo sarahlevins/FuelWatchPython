@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ fuel_station.trading_name }}</h2>
+<p>Address: {{ fuel_station.address }}, {{ fuel_station.suburb }}</p>
+
+{{ fuel_station__fuelprice }}
+
+{% endblock %}

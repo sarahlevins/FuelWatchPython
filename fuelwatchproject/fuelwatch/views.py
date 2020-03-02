@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from fuelwatch.get_fuel import get_fuel
 from .models import FuelPrice, FuelStation
@@ -13,3 +14,8 @@ def index(request):
 def getfuel(request):
     get_fuel()
     return HttpResponse(200)
+
+class FuelStationDetail(DetailView):
+    model = FuelStation
+    context_object_name = 'fuel_station'
+    template_name = 'fuel_station_detail.html'
