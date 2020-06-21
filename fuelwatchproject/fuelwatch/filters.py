@@ -1,20 +1,18 @@
 import django_filters
 from django import forms
-from .models import FuelStation, FuelPrice
+from .models import FuelStation, FuelPrice, Suburb
 
 
-# class FuelFilter(django_filters.FilterSet):
+class FuelFilter(django_filters.FilterSet):
 
-#     SUBURB_CHOICES = Suburb.objects.all()
+    suburbs = Suburb.objects.all()
 
-#     print(type(SUBURB_CHOICES))
+    fuel_station__suburb = django_filters.ModelMultipleChoiceFilter(
+        queryset=suburbs, widget=forms.CheckboxSelectMultiple)
 
-#     fuel_station__suburb = django_filters.ModelMultipleChoiceFilter(
-#         queryset=SUBURB_CHOICES, widget=forms.CheckboxSelectMultiple)
-
-#     class Meta:
-#         model = FuelPrice
-#         fields = ['price', 'fuel_station__suburb']
+    class Meta:
+        model = FuelPrice
+        fields = ['price', 'fuel_station__suburb']
 
 
 # forms.MultipleChoiceField(

@@ -9,7 +9,6 @@ from .models import FuelPrice, StateRegion, Region, Brand, FuelStation, Product,
 def get_fuel_prices():
     products = (list(Product.objects.values_list('id')))
     for product in products:
-        print(product)
         response = requests.get(
             f'https://www.fuelwatch.wa.gov.au/fuelwatch/fuelWatchRSS?Product={product[0]}&Day=tomorrow')
         feed = feedparser.parse(response.content)
@@ -26,18 +25,7 @@ def get_fuel_prices():
                     fuel_station=linked_fuel_station
                 )
             except FuelStation.DoesNotExist:
-                print(entry.get('location'))
-                linked_brand = Brand.objects.get(name=entry.get('brand'))
-                fuel_station = FuelStation(
-                    trading_name=entry.get('trading-name'),
-                    address=entry.get('address'),
-                    phone=entry.get('phone'),
-                    latitude=entry.get('latitude'),
-                    longitude=entry.get('longitude'),
-                    site_features=entry.get('site-features'),
-                    brand=linked_brand
-                )
-                fuel_station.save()
+                fuel_station = create_fuel_station(entry)
                 fuel_price = FuelPrice(
                     price=entry.get('price'),
                     date=entry.get('date'),
@@ -45,6 +33,37 @@ def get_fuel_prices():
                     fuel_station=fuel_station
                 )
             fuel_price.save()
+
+
+def create_fuel_station(entry):
+    try:
+        linked_brand = Brand.objects.get(name=entry.get('brand'))
+    except Brand.DoesNotExist:
+        new_brand = Brand(
+            name=entry.get('brand')
+        )
+        new_brand.save()
+        linked_brand = Brand.objects.get(name=entry.get('brand'))
+    try:
+        linked_suburb = Suburb.objects.get(name=entry.get('location'))
+    except Suburb.DoesNotExist:
+        new_suburb = Suburb(
+            name=entry.get('location')
+        )
+        new_suburb.save()
+        linked_suburb = Suburb.objects.get(name=entry.get('location'))
+    fuel_station = FuelStation(
+        trading_name=entry.get('trading-name'),
+        address=entry.get('address'),
+        phone=entry.get('phone'),
+        latitude=entry.get('latitude'),
+        longitude=entry.get('longitude'),
+        site_features=entry.get('site-features'),
+        brand=linked_brand,
+        suburb=linked_suburb
+    )
+    fuel_station.save()
+    return fuel_station
 
 
 def get_fuel_stations():
@@ -63,7 +82,6 @@ def get_fuel_stations():
                 fuel_station.suburb = linked_suburb
                 fuel_station.save()
             except FuelStation.DoesNotExist:
-                print('fuel station doesnt exist')
                 linked_brand = Brand.objects.get(name=entry.get('brand'))
                 fuel_station = FuelStation(
                     trading_name=entry.get('trading-name'),

@@ -30,8 +30,8 @@
     <th>Name</th>
     <th>Price</th>
   </tr>
-  {% for f in filter.qs %}
-  <tr data-href="{% url 'fuelwatch:fuel-station-detail' f.fuel_station.trading_name %}">
+  {% for f in fuel %}
+  <tr data-href="{% url 'fuelwatch:fuel-station-detail' f.fuel_station.id %}">
     <td>{{ f.fuel_station.trading_name }}</td>
     <td>{{ f.price }}</td>
   </tr>

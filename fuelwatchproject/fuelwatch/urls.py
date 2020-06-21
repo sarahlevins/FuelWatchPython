@@ -7,5 +7,7 @@ app_name = 'fuelwatch'
 urlpatterns = [
     path('', views.index, name='index'),
     path('getfuel/', views.getfuel),
-    path('getfuelprices/', views.getfuelprices)
+    path('getfuelprices/', views.getfuelprices),
+    path('<str:pk>/', views.FuelStationDetail.as_view(), name='fuel-station-detail')
+
 ]
