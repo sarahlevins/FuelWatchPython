@@ -1,27 +1,75 @@
 from django.db import models
+import uuid
 
-class Suburb(models.Model):
-    suburb_name = models.CharField(max_length=100, primary_key=True)
-    region = models.IntegerField()
 
-    def __str__ (self):
-        return self.suburb_name
+class Suburb (models.Model):
+    name = models.CharField(primary_key=True, unique=True, max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class StateRegion (models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Region (models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Brand (models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    code = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 class FuelStation(models.Model):
-    trading_name = models.CharField(max_length=200, primary_key=True)
-    brand = models.CharField(max_length=50)
-    address = models.CharField(max_length=100)
-    suburb = models.ForeignKey(Suburb, on_delete=models.CASCADE)
-    
-    def __str__ (self):
+    trading_name = models.CharField(
+        max_length=100, primary_key=True, unique=True)
+    address = models.CharField(max_length=500)
+    suburb = models.ForeignKey(Suburb, on_delete=models.CASCADE, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
+    phone = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    site_features = models.CharField(max_length=500)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True)
+    state_region = models.ForeignKey(
+        StateRegion, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
         return self.trading_name
 
+
 class FuelPrice(models.Model):
-    title = models.CharField(max_length=500)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    date = models.DateTimeField()
-    fuel_type = models.IntegerField()
-    fuel_station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)    
-    
-    def __str__ (self):
-        return self.title
+    id = models.CharField(primary_key=True, unique=True,
+                          max_length=100, default=uuid.uuid4)
+    price = models.FloatField()
+    date = models.DateField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    fuel_station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.id
