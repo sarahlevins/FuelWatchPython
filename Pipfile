@@ -12,6 +12,8 @@ requests = "*"
 feedparser = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
+beautifulsoup4 = "*"
+djangofilters = "*"
 
 [requires]
 python_version = "3.7"

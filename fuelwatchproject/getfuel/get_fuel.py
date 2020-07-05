@@ -185,12 +185,7 @@ def get_filter_types():
         'Product':
         {
             '1': 'Unleaded Petrol',
-            '2': 'Premium Unleaded',
-            '4': 'Diesel',
-            '5': 'LPG',
-            '6': '98 RON',
-            '10': 'E85',
-            '11': 'Brand diesel'
+            '2': 'Premium Unleaded'
         }
     })
 
